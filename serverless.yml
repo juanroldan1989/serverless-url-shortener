@@ -15,6 +15,9 @@ plugins:
 package:
   individually: true
 
+custom:
+  UrlsTable: urls
+
 functions:
   getUrl:
     handler: lambdas/getUrl.handler
@@ -22,3 +25,17 @@ functions:
       - httpApi:
           path: /urls/{id}
           method: get
+
+resources:
+  Resources:
+    UrlsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.UrlsTable}
+        AttributeDefinitions: # only used for keySchema keys
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
