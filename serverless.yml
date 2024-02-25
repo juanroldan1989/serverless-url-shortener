@@ -9,6 +9,12 @@ provider:
   httpApi:
     cors: true
 
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
 functions:
   getUrl:
     handler: lambdas/getUrl.handler
