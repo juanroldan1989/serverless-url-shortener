@@ -1,5 +1,5 @@
 const Responses = require('../common/API_Responses');
-const urls = require('../common/Dynamo');
+const urls = require('../common/Dynamo.mjs').default;
 
 const tableName = process.env.tableName;
 
