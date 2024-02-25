@@ -6,6 +6,16 @@ provider:
   name: aws
   runtime: nodejs18.x
   profile: default
+  region: us-east-1
+  environment:
+    tableName: ${self:custom.UrlsTable}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "*"
   httpApi:
     cors: true
 
@@ -20,7 +30,7 @@ custom:
 
 functions:
   getUrl:
-    handler: lambdas/getUrl.handler
+    handler: lambdas/endpoints/getUrl.handler
     events:
       - httpApi:
           path: /urls/{id}
