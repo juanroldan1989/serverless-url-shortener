@@ -30,7 +30,7 @@ custom:
 
 functions:
   getUrl:
-    handler: lambdas/endpoints/getUrl.handler
+    handler: lambdas/endpoints/urls/get.handler
     events:
       - httpApi:
           path: /urls/{id}

@@ -1,5 +1,5 @@
-const Responses = require('../common/API_Responses');
-const urls = require('../common/Dynamo.mjs').default;
+const responses = require('../../common/api_responses.js');
+const urls = require('../../common/databases/dynamodb.mjs').default;
 
 const tableName = process.env.tableName;
 
@@ -7,7 +7,7 @@ module.exports.handler = async (event) => {
   console.log('event', event);
 
   if (!event.pathParameters || !event.pathParameters.id) {
-    return Responses._400({ message: 'missing `id` from parameters' });
+    return responses._400({ message: 'missing `id` from parameters' });
   }
 
   let id = event.pathParameters.id;
@@ -18,8 +18,8 @@ module.exports.handler = async (event) => {
   });
 
   if (!url) {
-    return Responses._400({ message: 'URL not found' });
+    return responses._400({ message: 'URL not found' });
   }
 
-  return Responses._200(url);
+  return responses._200(url);
 }

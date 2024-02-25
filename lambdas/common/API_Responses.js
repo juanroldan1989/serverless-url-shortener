@@ -1,4 +1,4 @@
-const Responses = {
+const responses = {
   _200(data = {}){
     return {
       headers: {
@@ -23,4 +23,4 @@ const Responses = {
   },
 };
 
-module.exports = Responses;
+module.exports = responses;
