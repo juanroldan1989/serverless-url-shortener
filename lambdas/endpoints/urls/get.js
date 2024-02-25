@@ -1,6 +1,5 @@
 const responses = require('../../common/api_responses.js');
-const urls = require('../../common/databases/dynamodb.mjs').default;
-
+const database = require('../../common/databases/dynamodb.mjs').default;
 const tableName = process.env.tableName;
 
 module.exports.handler = async (event) => {
@@ -10,10 +9,9 @@ module.exports.handler = async (event) => {
     return responses._400({ message: 'missing `id` from parameters' });
   }
 
-  let id = event.pathParameters.id;
-
-  const url = await urls.get(id, tableName).catch(err => {
-    console.log("getUrl error: ", err);
+  const id = event.pathParameters.id;
+  const url = await database.get(id, tableName).catch(err => {
+    console.log("endpoints/urls/get - error: ", err);
     return null;
   });
 

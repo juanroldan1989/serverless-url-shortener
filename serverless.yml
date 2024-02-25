@@ -35,6 +35,12 @@ functions:
       - httpApi:
           path: /urls/{id}
           method: get
+  createCode:
+    handler: lambdas/endpoints/codes/create.handler
+    events:
+      - httpApi:
+          path: /codes
+          method: post
 
 resources:
   Resources:

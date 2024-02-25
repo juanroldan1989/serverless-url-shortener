@@ -2,20 +2,22 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
   GetCommand,
+  PutCommand
 } from "@aws-sdk/lib-dynamodb";
+import { v1 } from "uuid";
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
+
 const functions = {
   async get (id, tableName) {
-    const data = await dynamo.send(
-      new GetCommand({
-        TableName: tableName,
-        Key: {
-          id: id,
-        },
-      })
-    );
+    const params = {
+      TableName: tableName,
+      Key: {
+        id: id,
+      },
+    };
+    const data = await dynamo.send(new GetCommand(params));
 
     if (!data || !data.Item) {
       throw Error(`Error fetching data for ID: ${id} from table: ${tableName}`);
@@ -24,6 +26,29 @@ const functions = {
     console.log(data);
 
     return data.Item;
+  },
+
+  async create (url, tableName) {
+    const timestamp = new Date().getTime();
+    const params = {
+      TableName: tableName,
+      Item: {
+        id: v1(),
+        url: url,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      },
+    };
+
+    const data = await dynamo.send(new PutCommand(params));
+
+    if (!data) {
+      throw Error(`Error generating code for url: ${url} in table: ${tableName}`);
+    }
+
+    console.log(data);
+
+    return data;
   }
 };
 
