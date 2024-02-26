@@ -12,7 +12,7 @@ export async function handler(event) {
 
   const id = event.pathParameters.id;
   const data = await database.get(id, tableName).catch(err => {
-    console.log("endpoints/urls/get - error: ", err);
+    console.log("/endpoints/v1/urls/get - error: ", err);
     return null;
   });
 

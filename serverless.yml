@@ -9,6 +9,7 @@ provider:
   region: us-east-1
   environment:
     DYNAMODB_TABLE: ${self:service}-${sls:stage}
+    SQS_URL: ${construct:urls-queue.queueUrl}
   iam:
     role:
       statements:
@@ -52,6 +53,7 @@ provider:
 
 plugins:
   - serverless-webpack
+  - serverless-lift
 
 package:
   individually: true
@@ -72,6 +74,20 @@ functions:
           method: post
           private: true
           cors: true
+  enqueueUrl:
+    handler: lambdas/endpoints/v1/urls/enqueue.handler
+    events:
+      - http:
+          path: /v1/urls/enqueue
+          method: post
+          private: true
+          cors: true
+
+constructs:
+  urls-queue:
+    type: queue
+    worker:
+      handler: lambdas/workers/codes/create.handler
 
 resources:
   Resources:
