@@ -19,6 +19,39 @@ provider:
           Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
   httpApi:
     cors: true
+  apiGateway:
+    apiKeys:
+      - free:
+          - ${sls:stage}-FreePlanKey
+      - basic:
+          - ${sls:stage}-BasicPlanKey
+      - premium:
+          - ${sls:stage}-PremiumPlanKey
+    usagePlan:
+      - free:
+          quota:
+            limit: 1000
+            offset: 2
+            period: MONTH
+          throttle:
+            burstLimit: 200
+            rateLimit: 100
+      - basic:
+          quota:
+            limit: 5000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 1000
+            rateLimit: 500
+      - premium:
+          quota:
+            limit: 10000
+            offset: 1
+            period: MONTH
+          throttle:
+            burstLimit: 2000
+            rateLimit: 1000
 
 plugins:
   - serverless-webpack
@@ -30,15 +63,19 @@ functions:
   getUrl:
     handler: lambdas/endpoints/v1/urls/get.handler
     events:
-      - httpApi:
+      - http:
           path: /v1/urls/{id}
           method: get
+          private: true
+          cors: true
   createCode:
     handler: lambdas/endpoints/v1/codes/create.handler
     events:
-      - httpApi:
+      - http:
           path: /v1/codes
           method: post
+          private: true
+          cors: true
 
 resources:
   Resources:
