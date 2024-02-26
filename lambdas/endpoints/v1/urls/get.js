@@ -10,14 +10,14 @@ module.exports.handler = async (event) => {
   }
 
   const id = event.pathParameters.id;
-  const url = await database.get(id, tableName).catch(err => {
+  const data = await database.get(id, tableName).catch(err => {
     console.log("endpoints/urls/get - error: ", err);
     return null;
   });
 
-  if (!url) {
+  if (!data) {
     return responses._400({ message: 'URL not found' });
   }
 
-  return responses._200(url);
+  return responses._200(data.OriginalUrl);
 }

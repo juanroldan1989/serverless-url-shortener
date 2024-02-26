@@ -19,5 +19,5 @@ module.exports.handler = async (event) => {
     return responses._400({ message: 'Failed to create code' });
   };
 
-  return responses._200({ code: code });
+  return responses._200(code);
 }
