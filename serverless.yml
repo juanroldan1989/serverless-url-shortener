@@ -49,9 +49,9 @@ resources:
       Properties:
         TableName: ${self:custom.UrlsTable}
         AttributeDefinitions: # only used for keySchema keys
-          - AttributeName: ID
+          - AttributeName: Id
             AttributeType: S
         KeySchema:
-          - AttributeName: ID
+          - AttributeName: Id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST

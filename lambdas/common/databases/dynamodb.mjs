@@ -14,7 +14,7 @@ const functions = {
     const params = {
       TableName: tableName,
       Key: {
-        ID: id,
+        Id: id,
       },
     };
     const data = await dynamo.send(new GetCommand(params));
@@ -34,10 +34,10 @@ const functions = {
     const params = {
       TableName: tableName,
       Item: {
-        ID: id,
+        Id: id,
         OriginalUrl: url,
-        createdAt: timestamp,
-        updatedAt: timestamp,
+        CreatedAt: timestamp,
+        UpdatedAt: timestamp,
       },
     };
 
