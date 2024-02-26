@@ -31,23 +31,20 @@ provider:
       - free:
           quota:
             limit: 1000
-            offset: 2
             period: MONTH
           throttle:
             burstLimit: 200
             rateLimit: 100
       - basic:
           quota:
-            limit: 5000
-            offset: 1
+            limit: 2000
             period: MONTH
           throttle:
-            burstLimit: 1000
-            rateLimit: 500
+            burstLimit: 400
+            rateLimit: 200
       - premium:
           quota:
             limit: 10000
-            offset: 1
             period: MONTH
           throttle:
             burstLimit: 2000
