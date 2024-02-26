@@ -2,8 +2,6 @@
 
 <img src="https://github.com/juanroldan1989/terraform-url-shortener/raw/main/screenshots/url-shortener-infra-1.png" width="100%" />
 
-1. [Core Features](#core-features)
-
 # Core Features
 
 - Generate **code** for shortened URL (`/codes` endpoint):
@@ -19,6 +17,5 @@ $ curl -X POST \
 - Retrieve **url** based on code (`/urls` endpoint):
 
 ```ruby
-$ curl -H "x-api-key: <api-key>" \
-  https://<api-gateway-id>.execute-api.<aws-region>.amazonaws.com/dev/v1/urls/<code>
+$ curl https://<api-gateway-id>.execute-api.<aws-region>.amazonaws.com/dev/v1/urls/<code>
 ```
