@@ -28,16 +28,16 @@ package:
 
 functions:
   getUrl:
-    handler: lambdas/endpoints/urls/get.handler
+    handler: lambdas/endpoints/v1/urls/get.handler
     events:
       - httpApi:
-          path: /urls/{id}
+          path: /v1/urls/{id}
           method: get
   createCode:
-    handler: lambdas/endpoints/codes/create.handler
+    handler: lambdas/endpoints/v1/codes/create.handler
     events:
       - httpApi:
-          path: /codes
+          path: /v1/codes
           method: post
 
 resources:

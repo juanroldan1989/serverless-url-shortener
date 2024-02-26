@@ -12,7 +12,7 @@
 % curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"url": "https://this-is-my-sample-original-url"}' \
-https://<api-gateway-id>.execute-api.<region>.amazonaws.com/urls
+https://<api-gateway-id>.execute-api.<region>.amazonaws.com/v1/urls
 ```
 
 Response:
@@ -21,10 +21,10 @@ Response:
 { "code" : "736339761" }
 ```
 
-2. `code` can then be used to build `https://<api-gateway-id>.execute-api.<region>.amazonaws.com/urls/{code}` and should return original URL `https://really-awesome-long-url.com` (`GET request`):
+2. `code` can then be used to build `https://<api-gateway-id>.execute-api.<region>.amazonaws.com/v1/urls/{code}` and should return original URL `https://really-awesome-long-url.com` (`GET request`):
 
 ```ruby
-% curl https://<api-gateway-id>.execute-api.<region>.amazonaws.com/urls/736339761
+% curl https://<api-gateway-id>.execute-api.<region>.amazonaws.com/v1/urls/736339761
 ```
 
 Response:
