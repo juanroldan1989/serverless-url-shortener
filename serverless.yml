@@ -8,14 +8,15 @@ provider:
   profile: default
   region: us-east-1
   environment:
-    tableName: ${self:custom.UrlsTable}
+    DYNAMODB_TABLE: ${self:service}-${sls:stage}
   iam:
     role:
       statements:
         - Effect: Allow
           Action:
-            - dynamodb:*
-          Resource: "*"
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
   httpApi:
     cors: true
 
@@ -24,9 +25,6 @@ plugins:
 
 package:
   individually: true
-
-custom:
-  UrlsTable: urls
 
 functions:
   getUrl:
@@ -47,7 +45,7 @@ resources:
     UrlsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.UrlsTable}
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         AttributeDefinitions: # only used for keySchema keys
           - AttributeName: Id
             AttributeType: S
