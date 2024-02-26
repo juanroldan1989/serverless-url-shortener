@@ -1,13 +1,14 @@
-const responses = require('../../../common/API_Responses.js');
-const database = require('../../../common/databases/dynamodb.js').default;
+import { _400, _200 } from '../../../common/API_Responses.js';
+import database from '../../../common/databases/dynamodb.js';
+
 const tableName = process.env.DYNAMODB_TABLE;
 
-module.exports.handler = async (event) => {
+export async function handler(event) {
   console.log('event', event);
   const data = JSON.parse(event.body);
 
   if (!data || !data.url) {
-    return responses._400({ message: 'missing `url` from payload' });
+    return _400({ message: 'missing `url` from payload' });
   }
 
   const code = await database.create(data.url, tableName).catch(err => {
@@ -16,8 +17,8 @@ module.exports.handler = async (event) => {
   });
 
   if (!code) {
-    return responses._400({ message: 'Failed to create code' });
+    return _400({ message: 'Failed to create code' });
   };
 
-  return responses._200(code);
+  return _200(code);
 }
