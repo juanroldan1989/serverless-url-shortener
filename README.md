@@ -19,3 +19,7 @@ $ curl -X POST \
 ```ruby
 $ curl https://<api-gateway-id>.execute-api.<aws-region>.amazonaws.com/dev/v1/urls/<code>
 ```
+
+# Naming conventions for files and functions
+
+https://github.com/airbnb/javascript?tab=readme-ov-file#naming-conventions

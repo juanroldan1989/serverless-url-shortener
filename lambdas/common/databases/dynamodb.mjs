@@ -4,7 +4,7 @@ import {
   GetCommand,
   PutCommand
 } from "@aws-sdk/lib-dynamodb";
-import { generateCode } from "../utils/generate_code.js";
+import { generateCode } from "../utils/generateCode.js.js";
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);

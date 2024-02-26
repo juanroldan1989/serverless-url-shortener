@@ -1,4 +1,4 @@
-const responses = require('../../../common/api_responses.js');
+const responses = require('../../../common/API_Responses.js');
 const database = require('../../../common/databases/dynamodb.mjs').default;
 const tableName = process.env.DYNAMODB_TABLE;
 
