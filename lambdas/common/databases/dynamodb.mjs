@@ -30,10 +30,11 @@ const functions = {
 
   async create (url, tableName) {
     const timestamp = new Date().getTime();
+    const id = v1();
     const params = {
       TableName: tableName,
       Item: {
-        ID: v1(),
+        ID: id,
         OriginalUrl: url,
         createdAt: timestamp,
         updatedAt: timestamp,
@@ -48,7 +49,7 @@ const functions = {
 
     console.log(data);
 
-    return data;
+    return id;
   }
 };
 

@@ -4,13 +4,13 @@ const tableName = process.env.tableName;
 
 module.exports.handler = async (event) => {
   console.log('event', event);
+  const data = JSON.parse(event.body);
 
-  if (!event.pathParameters || !event.pathParameters.url) {
-    return responses._400({ message: 'missing `url` from parameters' });
+  if (!data || !data.url) {
+    return responses._400({ message: 'missing `url` from payload' });
   }
 
-  const url = JSON.parse(event.body);
-  const code = await database.create(url, tableName).catch(err => {
+  const code = await database.create(data.url, tableName).catch(err => {
     console.log("endpoints/codes/create - error: ", err);
     return null;
   });
@@ -19,5 +19,5 @@ module.exports.handler = async (event) => {
     return responses._400({ message: 'Failed to create code' });
   };
 
-  return responses._200(code);
+  return responses._200({ code: code });
 }
