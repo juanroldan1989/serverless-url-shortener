@@ -12,7 +12,7 @@ export async function handler(event) {
   }
 
   const code = await database.create(data.url, tableName).catch(err => {
-    console.log("endpoints/codes/create - error: ", err);
+    console.log("endpoints/v1/codes/create - error: ", err);
     return null;
   });
 
