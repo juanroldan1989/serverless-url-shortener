@@ -1,5 +1,5 @@
 const responses = require('../../../common/API_Responses.js');
-const database = require('../../../common/databases/dynamodb.mjs').default;
+const database = require('../../../common/databases/dynamodb.js').default;
 const tableName = process.env.DYNAMODB_TABLE;
 
 module.exports.handler = async (event) => {
