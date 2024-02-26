@@ -20,15 +20,17 @@ $ curl -X POST \
 $ curl https://<api-gateway-id>.execute-api.<aws-region>.amazonaws.com/dev/v1/urls/<code>
 ```
 
-# Naming conventions for files and functions
-
-https://github.com/airbnb/javascript?tab=readme-ov-file#naming-conventions
-
-# Deployment
+# Setup
 
 1. Clone repository.
 
-2. Install serverless framework.
+2. Install and Configure Serverless framework:
+
+https://www.serverless.com/framework/docs/getting-started
+
+```ruby
+$ npm install -g serverless
+```
 
 3. CD into project folder:
 
@@ -50,3 +52,31 @@ functions:
   getUrl: serverless-url-shortener-dev-getUrl (86 kB)
   createCode: serverless-url-shortener-dev-createCode (86 kB)
 ```
+
+# CQRS Pattern
+
+Pattern implemented within REST API.
+
+https://apisix.apache.org/blog/2022/09/23/build-event-driven-api/
+
+CQRS stands for `Command and Query Responsibility Segregation`, a pattern that separates reads and writes into different models, using commands to update data, and queries to read data.
+
+`query` and `upsert` (updates or creates) responsibilities are split (segregated) into different services (e.g.: AWS Lambda Functions)
+
+Technically, this can be implemented in HTTP so that the `Command API` is implemented exclusively with `POST routes`, while the `Query API` is implemented exclusively with `GET routes`.
+
+<img src="https://github.com/juanroldan1989/terraform-url-shortener/raw/main/screenshots/url-shortener-infra-2.png" width="100%" />
+
+For high number of `POST` requests, an improvement is to **decouple** `create` Lambda function from `DynamoDB` table by adding an `SQS Queue` **in between**.
+
+`create` Lambda function **no longer writes** to `DynamoDB` table directly.
+
+Instead:
+
+1. `create` Lambda function sends `url` data into `create` SQS Queue as message.
+2. SQS Queue message is picked up by `upsert` Lambda function.
+3. `upsert` Lambda function persists record into `urls` DynamoDB Table:
+
+# Naming conventions for files and functions
+
+https://github.com/airbnb/javascript?tab=readme-ov-file#naming-conventions
