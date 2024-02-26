@@ -23,3 +23,30 @@ $ curl https://<api-gateway-id>.execute-api.<aws-region>.amazonaws.com/dev/v1/ur
 # Naming conventions for files and functions
 
 https://github.com/airbnb/javascript?tab=readme-ov-file#naming-conventions
+
+# Deployment
+
+1. Clone repository.
+
+2. Install serverless framework.
+
+3. CD into project folder:
+
+```ruby
+$ sls deploy
+
+Deploying serverless-url-shortener to stage dev (us-east-1)
+
+✔ Service deployed to stack serverless-url-shortener-dev (73s)
+
+api keys:
+  dev-BasicPlanKey: xxxx (auto-generated value at deployment time)
+  dev-FreePlanKey: yyyy (auto-generated value at deployment time)
+  dev-PremiumPlanKey: zzzz (auto-generated value at deployment time)
+endpoints:
+  GET - https://gjvvigycif.execute-api.us-east-1.amazonaws.com/dev/v1/urls/{id}
+  POST - https://gjvvigycif.execute-api.us-east-1.amazonaws.com/dev/v1/codes
+functions:
+  getUrl: serverless-url-shortener-dev-getUrl (86 kB)
+  createCode: serverless-url-shortener-dev-createCode (86 kB)
+```
