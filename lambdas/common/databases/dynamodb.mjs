@@ -4,7 +4,7 @@ import {
   GetCommand,
   PutCommand
 } from "@aws-sdk/lib-dynamodb";
-import { v1 } from "uuid";
+import { generateCode } from "../utils/generate_code.js";
 
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
@@ -30,11 +30,11 @@ const functions = {
 
   async create (url, tableName) {
     const timestamp = new Date().getTime();
-    const id = v1();
+    const id = await generateCode(url);
     const params = {
       TableName: tableName,
       Item: {
-        Id: id,
+        Id: id.toString(),
         OriginalUrl: url,
         CreatedAt: timestamp,
         UpdatedAt: timestamp,
