@@ -1,3 +1,5 @@
+org: juanroldan1989
+app: serverless-url-shortener
 service: serverless-url-shortener
 
 frameworkVersion: "3"
