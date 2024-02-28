@@ -107,3 +107,9 @@ https://github.com/getlift/lift/blob/master/docs/queue.md
 
 References:
 https://github.com/serverless/examples/blob/v3/aws-node-sqs-worker/serverless.yml
+
+CI/CD:
+https://github.com/serverless/github-action
+
+Unit Testing:
+https://www.serverless.com/blog/unit-testing-nodejs-serverless-jest
